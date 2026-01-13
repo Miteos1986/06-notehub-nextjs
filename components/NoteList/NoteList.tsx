@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Note } from "../../types/note";
+import type { Note } from "@/types/note";
 import css from "./NoteList.module.css";
-import { deleteNote } from "../../services/noteService";
+import { deleteNote } from "@/lib/api";
 import toast from "react-hot-toast";
 
 interface NoteListProps {
@@ -28,6 +29,9 @@ const NoteList = ({ notes }: NoteListProps) => {
           <p className={css.content}>{note.content}</p>
           <div className={css.footer}>
             <span className={css.tag}>{note.tag}</span>
+            <Link href={`/notes/${note.id}`}>
+              <button className={css.button_view}>View details</button>
+            </Link>
             <button
               className={css.button}
               onClick={() => mutate(note.id)}
